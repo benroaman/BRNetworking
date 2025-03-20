@@ -203,6 +203,8 @@ private extension BRNetworking {
     static func getResponse<RequestBody: Encodable>(url: URL, method: HTTPMethod, headers: [String: String]?, requestBody: RequestBody, encoder: JSONEncoder, session: URLSession) async throws -> ResponsePackage {
         let requestBodyData: Data
         
+        let request = makeRequest(for: url, method: method, headers: headers)
+        
         do {
             requestBodyData = try encoder.encode(requestBody)
             logData(requestBodyData, direction: .outgoing)
@@ -212,7 +214,7 @@ private extension BRNetworking {
         }
         
         do {
-            return try await session.upload(for: makeRequest(for: url, method: method, headers: headers), from: requestBodyData)
+            return try await session.upload(for: request, from: requestBodyData)
         } catch {
             throw error
         }

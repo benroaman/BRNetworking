@@ -36,5 +36,20 @@ public extension BRNetworking {
         /// - Parameters:
         ///   - error: The error that was thrown.
         case unknown(error: Error?)
+        
+    }
+    
+}
+
+public extension BRNetworking.Problem {
+    var description: String {
+        switch self {
+        case .badResponse(let code, _): return "Bad response code: \(code)"
+        case .cannotDecodeResponse(let error, _): return "Cannot decode response body with error: \(error.localizedDescription)"
+        case .cannotEncodeBody(let error, _): return "Cannot encode request body with error: \(error.localizedDescription)"
+        case .missingBody(let method): return "Missing body for HTTP method \(method.rawValue)"
+        case .invalidResponseType: return "Response type is not HTTPURLResponse"
+        case .unknown(let error): return "Unclassified error: \(error?.localizedDescription ?? "nil error")"
+        }
     }
 }
