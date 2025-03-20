@@ -36,6 +36,10 @@ public extension BRNetworking {
         /// - Parameters:
         ///   - error: The error that was thrown.
         case unknown(error: Error?)
+        /// Represents when a provided url string is invalid, for client use only
+        /// - Parameters:
+        ///   - urlString: The String that was not valid as a URL
+        case badURL(urlString: String)
         
     }
     
@@ -50,6 +54,7 @@ public extension BRNetworking.Problem {
         case .missingBody(let method): return "Missing body for HTTP method \(method.rawValue)"
         case .invalidResponseType: return "Response type is not HTTPURLResponse"
         case .unknown(let error): return "Unclassified error: \(error?.localizedDescription ?? "nil error")"
+        case .badURL(let urlString): return "Invalid string passed as for URL: \(urlString)"
         }
     }
 }
