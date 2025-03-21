@@ -46,6 +46,7 @@ public extension BRNetworking {
 }
 
 public extension BRNetworking.Problem {
+    /// A Description of the error, including any associated data that is reasonable to log
     var description: String {
         switch self {
         case .badResponse(let code, _): return "Bad response code: \(code)"
